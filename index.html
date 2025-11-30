@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serpent Chromatique</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top-bar">
+    <div>
+      <h1>Serpent Chromatique</h1>
+      <p>Un mini-jeu inspiré de Slither.io où votre serpent grandit en avalant des orbes colorées.</p>
+    </div>
+    <button id="restart">Recommencer</button>
+  </header>
+
+  <main class="game-container">
+    <section class="canvas-wrapper">
+      <canvas id="game" width="960" height="640" aria-label="Zone de jeu du serpent" role="img"></canvas>
+      <div class="hud">
+        <div class="stat">Score : <span id="score">0</span></div>
+        <div class="stat">Taille : <span id="length">0</span></div>
+        <div class="stat">Vitesse : <span id="speed">0</span></div>
+      </div>
+    </section>
+
+    <section class="instructions">
+      <h2>Commandes</h2>
+      <ul>
+        <li><strong>Flèches</strong> ou <strong>ZQSD</strong> : diriger le serpent</li>
+        <li><strong>Espace</strong> : boost de vitesse (consomme de la longueur)</li>
+        <li><strong>R</strong> ou bouton &laquo;&nbsp;Recommencer&nbsp;&raquo; : nouvelle partie</li>
+      </ul>
+      <p>Collectez les orbes multicolores pour gagner des points. Touchez votre propre queue ou sortez de l'arène et la partie est perdue.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Mode arcade solo, réalisé en HTML5 Canvas.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
