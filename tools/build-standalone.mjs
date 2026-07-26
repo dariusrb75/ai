@@ -22,6 +22,9 @@ const OUT = join(root, 'dist/chess-standalone.html');
 // The Artifact host wraps whatever it is given in its own <!doctype>/<head>/<body>, so the
 // published variant must be content only — no document scaffolding of its own.
 const OUT_ARTIFACT = join(root, 'dist/chess-artifact.html');
+// Same file under a name that reads clearly when it lands in a French speaker's WhatsApp.
+// Emitted by the build rather than copied by hand, so it cannot drift from the real output.
+const OUT_SHARE = join(root, 'dist/echecs.html');
 
 /**
  * chess.js ships as an ES module. Inlined into a classic <script> its trailing `export {...}`
@@ -109,6 +112,9 @@ mkdirSync(join(root, 'dist'), { recursive: true });
 writeFileSync(OUT, html);
 console.log(`wrote ${OUT}`);
 console.log(`  ${kb(Buffer.byteLength(html))} KB, single file, no external references`);
+
+writeFileSync(OUT_SHARE, html);
+console.log(`wrote ${OUT_SHARE} (same file, share-friendly name)`);
 
 const fragment = toArtifactFragment(html);
 writeFileSync(OUT_ARTIFACT, fragment);

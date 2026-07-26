@@ -54,7 +54,7 @@ cache et il s'ouvre ensuite en plein écran.
 ## Le reconstruire
 
 ```sh
-node tools/build-standalone.mjs   # → dist/chess-standalone.html + dist/chess-artifact.html
+node tools/build-standalone.mjs   # → dist/chess-standalone.html, dist/echecs.html, dist/chess-artifact.html
 node test/standalone.mjs          # 35 vérifications, dont « zéro requête réseau »
 ```
 
