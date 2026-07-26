@@ -24,4 +24,4 @@ include(":core")
 include(":tools")
 
 // :app is a thin Android wrapper around :core.
-// include(":app") // re-enabled once the module exists
+include(":app")

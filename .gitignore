@@ -24,3 +24,6 @@ test/results/
 # OS noise
 .DS_Store
 Thumbs.db
+
+# Local symlink used only to resolve the dev-time Playwright install
+/node_modules

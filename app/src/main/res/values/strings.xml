@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Offline Chess</string>
+
+    <string name="setup_title">Host a game</string>
+    <string name="setup_intro">This phone runs the game. The other phone joins over your hotspot — no internet needed.</string>
+
+    <string name="setup_step_hotspot">1. Turn on your Wi-Fi hotspot</string>
+    <string name="setup_step_hotspot_detail">Settings → Hotspot &amp; tethering. Mobile data can stay off. Set the auto-off timer to never if your phone has one.</string>
+
+    <string name="setup_name_label">2. Your name</string>
+    <string name="setup_name_hint">Player</string>
+
+    <string name="setup_color_label">3. You play</string>
+    <string name="color_white">White</string>
+    <string name="color_black">Black</string>
+
+    <string name="setup_clock_label">4. Clock</string>
+    <string name="clock_unlimited">No clock</string>
+    <string name="clock_unlimited_note">Best outdoors — nobody loses because a phone was in a pocket</string>
+    <string name="clock_5">5 min</string>
+    <string name="clock_10_5">10 min + 5 sec</string>
+    <string name="clock_15_10">15 min + 10 sec</string>
+    <string name="clock_30">30 min</string>
+
+    <string name="setup_start">Start hosting</string>
+
+    <string name="host_title">Ready to play</string>
+    <string name="host_scan">Scan this with the other phone\'s camera</string>
+    <string name="host_join_steps">On the other phone: join this hotspot, ignore the “No Internet Connection” warning, then scan the code or type the address below.</string>
+    <string name="host_no_address">No network address found. Is the hotspot switched on?</string>
+    <string name="host_other_addresses">Other addresses on this device:</string>
+    <string name="host_open_board">Open the board</string>
+    <string name="host_stop">Stop hosting</string>
+    <string name="host_failed">Could not start hosting: %1$s</string>
+
+    <string name="notification_title">Hosting a chess game</string>
+    <string name="notification_hosting">The game is running</string>
+    <string name="notification_hosting_at">Other phone: %1$s</string>
+    <string name="notification_stop">Stop</string>
+    <string name="channel_name">Game host</string>
+    <string name="channel_description">Keeps the chess game running while the screen is off</string>
+
+    <string name="qr_content_description">QR code containing the address of this game</string>
+</resources>

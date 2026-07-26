@@ -353,6 +353,22 @@ class GameSessionTest {
     }
 
     @Test
+    fun `a rematch keeps the clock when handed the current time control`() {
+        val s = seated(TimeControl(300_000, 2_000))
+        advance(10_000)
+        s.move("tw", "e2e4", "e4")
+        s.resign("tb")
+
+        // This is what the server passes when the client asks for a rematch without naming a
+        // new time control; the host's chosen clock must survive.
+        s.newGame(s.timeControl)
+
+        assertFalse(s.timeControl.isUnlimited, "the clock must not be dropped on a rematch")
+        assertEquals(300_000, s.remainingMs(Color.WHITE))
+        assertEquals(2_000, s.timeControl.incrementMs)
+    }
+
+    @Test
     fun `a rematch resets the board and swaps colours`() {
         val s = seated(TimeControl(60_000, 0))
         advance(5_000)
