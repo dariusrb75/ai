@@ -27,3 +27,7 @@ Thumbs.db
 
 # Local symlink used only to resolve the dev-time Playwright install
 /node_modules
+
+# Signing keystore for sideload builds. Regenerate with the keytool command in dist/README.md.
+*.jks
+*.keystore

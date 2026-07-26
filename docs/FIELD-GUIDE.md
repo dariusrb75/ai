@@ -14,9 +14,22 @@ want to find out while a fix is still possible — not at the campsite.
 ## Before you leave (needs internet)
 
 1. **Install the APK on the Android phone.**
-   Copy `dist/offline-chess.apk` to the phone and tap it. Android will ask you to allow
-   installing unknown apps for whichever app you opened it from (Files, Chrome, Drive) — that
-   permission is per-app, so allow it for that one and tap Install again.
+   Copy `dist/offline-chess.apk` to the phone and tap it, choosing the system
+   **Package installer**. Android will ask you to allow installing unknown apps for whichever
+   app you opened it from (Files, Chrome, Drive) — that permission is per-app, so allow it for
+   that one and tap Install again. Play Protect may also warn: **More details** →
+   **Install anyway**. Both prompts are normal for anything outside the Play Store.
+
+   **If it says "App not installed":** work through these in order.
+   - **Uninstall any previous attempt.** A leftover package with the same app ID but a different
+     signature fails with this exact message, which makes a perfectly good file look broken.
+   - **Check the file size** in a file manager. It must be exactly **3,004,192 bytes** (2.9 MB).
+     Anything else means the download was truncated — re-send it, as a *document* rather than a
+     photo or a cloud link.
+   - **Check the Android version** (Settings → About phone). The app needs **Android 8.0** or
+     newer.
+   - Make sure you are using the system **Package installer**, not a cloud app like TeraBox,
+     which only uploads the file instead of installing it.
 
 2. **Turn off Wi-Fi Assist on the iPhone.**
    Settings → Cellular → scroll to the bottom → **Wi-Fi Assist off**.
