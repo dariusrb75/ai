@@ -1,0 +1,26 @@
+# Gradle / build output
+.gradle/
+build/
+*/build/
+local.properties
+
+# Android
+*.apk.idsig
+.cxx/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Node (only used by the test harness; never at runtime)
+node_modules/
+package-lock.json
+
+# Test artifacts
+test/screenshots/
+test/results/
+
+# OS noise
+.DS_Store
+Thumbs.db
