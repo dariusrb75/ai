@@ -69,6 +69,15 @@ class GameSession(
 
     fun colorOf(token: String): Color? = seatsByToken[token]
 
+    /**
+     * The seat this token currently holds. Needed because [newGame] swaps colours, so a client's
+     * seat can change without it reconnecting.
+     */
+    fun seatFor(token: String): Seat {
+        val color = seatsByToken[token]
+        return if (color != null) Seat(SeatKind.PLAYER, color) else Seat(SeatKind.SPECTATOR, null)
+    }
+
     fun nameOf(color: Color): String? =
         seatsByToken.entries.firstOrNull { it.value == color }?.let { namesByToken[it.key] }
 

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!--
+  viewport-fit=cover + apple-mobile-web-app-capable let this run fullscreen from the iPhone's
+  Home Screen with no Safari chrome. user-scalable=no because pinch-zooming a drag-and-drop
+  board is never what you meant to do.
+-->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Chess">
+<meta name="theme-color" content="#1b6b4c">
+<title>Offline Chess</title>
+<link rel="stylesheet" href="vendor/cm-chessboard/assets/chessboard.css">
+<link rel="stylesheet" href="vendor/cm-chessboard/assets/extensions/markers/markers.css">
+<link rel="stylesheet" href="vendor/cm-chessboard/assets/extensions/promotion-dialog/promotion-dialog.css">
+<link rel="stylesheet" href="ui.css">
+</head>
+<body>
+
+<!-- Join screen. Shown until the player picks a name and a mode. -->
+<div id="joinScreen" class="screen">
+  <div class="join-card">
+    <h1>Offline Chess</h1>
+    <p class="join-sub">No internet needed. Both phones on the same hotspot.</p>
+
+    <label class="field">
+      <span>Your name</span>
+      <input id="nameInput" type="text" maxlength="16" placeholder="Player"
+             autocomplete="off" autocapitalize="words" spellcheck="false">
+    </label>
+
+    <label class="field">
+      <span>Play as</span>
+      <select id="colorSelect">
+        <option value="">Whichever is free</option>
+        <option value="w">White</option>
+        <option value="b">Black</option>
+      </select>
+    </label>
+
+    <button id="joinBtn" class="btn btn-primary btn-big">Join the game</button>
+
+    <div class="join-divider"><span>or</span></div>
+
+    <button id="localBtn" class="btn btn-ghost btn-big">Pass &amp; play on this phone</button>
+    <p class="join-note">
+      Works with no connection at all. Use this if the hotspot plays up.
+    </p>
+  </div>
+</div>
+
+<!-- Main game screen. -->
+<div id="gameScreen" class="screen hidden">
+
+  <!-- Opponent: name, clock, connection state. -->
+  <div class="player-bar" id="topBar">
+    <div class="player-id">
+      <span class="conn-dot" id="topDot"></span>
+      <span class="player-name" id="topName">Waiting…</span>
+      <span class="player-color" id="topColor"></span>
+    </div>
+    <div class="clock" id="topClock">–:––</div>
+  </div>
+
+  <div class="board-wrap">
+    <div id="board"></div>
+  </div>
+
+  <!-- Me. -->
+  <div class="player-bar" id="bottomBar">
+    <div class="player-id">
+      <span class="conn-dot" id="bottomDot"></span>
+      <span class="player-name" id="bottomName">You</span>
+      <span class="player-color" id="bottomColor"></span>
+    </div>
+    <div class="clock" id="bottomClock">–:––</div>
+  </div>
+
+  <div class="status" id="status">Connecting…</div>
+
+  <!-- Incoming offer from the opponent (takeback / draw). -->
+  <div class="offer hidden" id="offerBar">
+    <span id="offerText">Opponent offers a draw</span>
+    <div class="offer-actions">
+      <button class="btn btn-small btn-primary" id="offerAccept">Accept</button>
+      <button class="btn btn-small" id="offerDecline">Decline</button>
+    </div>
+  </div>
+
+  <div class="moves-panel">
+    <div class="moves-head">
+      <span>Moves</span>
+      <button class="btn btn-tiny" id="flipBtn" title="Flip the board">Flip</button>
+    </div>
+    <ol class="moves" id="movesList"></ol>
+  </div>
+
+  <div class="controls">
+    <button class="btn" id="takebackBtn">Takeback</button>
+    <button class="btn" id="drawBtn">Draw</button>
+    <button class="btn btn-danger" id="resignBtn">Resign</button>
+    <button class="btn btn-primary" id="newGameBtn">New game</button>
+  </div>
+
+  <div class="footer">
+    <button class="btn btn-tiny" id="aboutBtn">About</button>
+  </div>
+</div>
+
+<!-- Game-over / new-game sheet. -->
+<div id="sheet" class="sheet hidden">
+  <div class="sheet-card">
+    <h2 id="sheetTitle">Game over</h2>
+    <p id="sheetBody"></p>
+    <div class="sheet-actions" id="sheetActions"></div>
+  </div>
+</div>
+
+<div id="about" class="sheet hidden">
+  <div class="sheet-card">
+    <h2>About</h2>
+    <p>
+      Offline 1v1 chess. The Android phone hosts the game over its Wi-Fi hotspot; nothing here
+      ever touches the internet.
+    </p>
+    <p class="credits">
+      Rules by <strong>chess.js</strong> (MIT). Board by <strong>cm-chessboard</strong> (MIT).
+      Piece graphics from Wikimedia Commons, CC BY-SA 3.0.
+    </p>
+    <div class="sheet-actions">
+      <button class="btn btn-primary" id="aboutClose">Close</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

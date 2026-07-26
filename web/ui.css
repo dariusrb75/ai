@@ -1,0 +1,468 @@
+/*
+ * Tuned for a phone screen in daylight: heavy weights, large type, strong contrast, and touch
+ * targets no smaller than 44px. Dark mode is supported for playing in a tent at night, but the
+ * light theme is the one optimised for glare.
+ */
+
+:root {
+  --bg: #f5f2ea;
+  --surface: #fffdf8;
+  --surface-alt: #ebe6da;
+  --text: #14120e;
+  --text-dim: #5c5648;
+  --border: #d3ccbb;
+  --accent: #1b6b4c;
+  --accent-text: #ffffff;
+  --danger: #a32b1c;
+  --warn: #8a5a00;
+  --ok: #1f7a3d;
+  --offline: #9a9384;
+
+  --radius: 12px;
+  --tap: 46px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16181a;
+    --surface: #21252a;
+    --surface-alt: #2b3037;
+    --text: #f2f4f6;
+    --text-dim: #a4adb8;
+    --border: #3a4048;
+    --accent: #2f9d72;
+    --accent-text: #05130d;
+    --danger: #e06a58;
+    --warn: #e0a63a;
+    --ok: #4cc47c;
+    --offline: #6b7480;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+  font-size: 17px;
+  -webkit-text-size-adjust: 100%;
+  /* Stops iOS Safari from bouncing the whole page while dragging a piece. */
+  overscroll-behavior: none;
+}
+
+body {
+  /* Respects the iPhone notch and home indicator when run from the Home Screen. */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+           env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.hidden { display: none !important; }
+
+.screen {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 8px 10px 24px;
+}
+
+/* ------------------------------------------------------------------ join screen */
+
+.join-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 18px;
+  margin-top: 8vh;
+}
+
+.join-card h1 {
+  margin: 0 0 4px;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+
+.join-sub {
+  margin: 0 0 20px;
+  color: var(--text-dim);
+  font-size: 15px;
+}
+
+.field { display: block; margin-bottom: 14px; }
+
+.field > span {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.field input, .field select {
+  width: 100%;
+  min-height: var(--tap);
+  padding: 10px 12px;
+  font-size: 17px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  /* 17px minimum stops iOS from zooming the viewport when a field is focused. */
+}
+
+.field input:focus, .field select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.join-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 14px;
+  color: var(--text-dim);
+  font-size: 13px;
+}
+
+.join-divider::before, .join-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.join-note {
+  margin: 10px 2px 0;
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+/* ------------------------------------------------------------------ buttons */
+
+.btn {
+  min-height: var(--tap);
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  /* Kills the 300ms tap delay and the grey flash on iOS. */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.btn-danger {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.btn-ghost { background: transparent; }
+
+.btn-big { width: 100%; font-size: 18px; min-height: 52px; }
+
+.btn-small { min-height: 38px; padding: 6px 12px; font-size: 15px; }
+
+.btn-tiny {
+  min-height: 32px;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  border-width: 1px;
+}
+
+/* ------------------------------------------------------------------ player bars */
+
+.player-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 5px 0;
+}
+
+/* The side to move gets a solid accent edge — readable at a glance in bright light. */
+.player-bar.to-move {
+  border-color: var(--accent);
+  box-shadow: inset 4px 0 0 var(--accent);
+}
+
+.player-id {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.player-name {
+  font-weight: 700;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-color {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.conn-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--offline);
+  flex-shrink: 0;
+}
+
+.conn-dot.online { background: var(--ok); }
+
+.clock {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  padding: 2px 10px;
+  border-radius: 8px;
+  background: var(--surface-alt);
+  flex-shrink: 0;
+}
+
+.clock.running { background: var(--accent); color: var(--accent-text); }
+
+.clock.low { background: var(--danger); color: #fff; }
+
+.clock.paused {
+  opacity: 0.55;
+  /* A paused clock must not look like a running one, or players will misread the game. */
+  text-decoration: line-through;
+}
+
+/* ------------------------------------------------------------------ board */
+
+.board-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 2px 0;
+}
+
+#board {
+  /*
+   * Leaves room for both player bars, the status line and the first row of controls without
+   * scrolling, while never exceeding the screen width. dvh tracks the iOS toolbar collapsing.
+   */
+  width: min(100%, calc(100dvh - 250px));
+  min-width: 240px;
+}
+
+/* Higher contrast than any of the shipped themes, for direct sunlight. */
+.cm-chessboard.default-contrast .board .square.white { fill: #edeed1; }
+.cm-chessboard.default-contrast .board .square.black { fill: #6f8f4f; }
+.cm-chessboard.default-contrast .coordinates .coordinate { fill: #2c2c2c; font-weight: 700; }
+
+/* The shipped 0.2 opacity disappears outdoors. */
+.cm-chessboard .markers .marker.marker-dot { fill: #12300c; opacity: 0.42; }
+.cm-chessboard .markers .marker.marker-frame { stroke: #12300c; opacity: 0.75; }
+
+/* Last move played. */
+.cm-chessboard .markers .marker.marker-square { fill: #f0c000; opacity: 0.42; }
+
+/* King in check. */
+.cm-chessboard .markers .marker.marker-circle-danger-filled {
+  stroke: #d21c00;
+  fill: #d21c00;
+  opacity: 0.5;
+}
+
+/* ------------------------------------------------------------------ status + offers */
+
+.status {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 9px 12px;
+  min-height: 42px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 5px 0;
+}
+
+.status.alert { border-color: var(--warn); color: var(--warn); }
+
+.status.over {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-text);
+  font-size: 17px;
+}
+
+.offer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 12px;
+  margin: 5px 0;
+  background: var(--surface);
+  border: 2px solid var(--warn);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.offer-actions { display: flex; gap: 8px; }
+
+/* ------------------------------------------------------------------ moves */
+
+.moves-panel {
+  margin: 8px 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.moves-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 12px;
+  background: var(--surface-alt);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+}
+
+.moves {
+  list-style: none;
+  margin: 0;
+  padding: 6px 8px;
+  max-height: 132px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: 2px 10px;
+  font-variant-numeric: tabular-nums;
+  font-size: 16px;
+}
+
+.moves li {
+  display: flex;
+  gap: 8px;
+  padding: 3px 4px;
+  border-radius: 6px;
+}
+
+.moves li .num {
+  color: var(--text-dim);
+  font-weight: 600;
+  min-width: 26px;
+  text-align: right;
+}
+
+.moves li .san { font-weight: 600; }
+
+.moves li .san.w { min-width: 56px; }
+
+.moves-empty {
+  padding: 8px 6px;
+  color: var(--text-dim);
+  font-size: 15px;
+  font-style: italic;
+}
+
+/* ------------------------------------------------------------------ controls */
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 8px 0;
+}
+
+@media (min-width: 430px) {
+  .controls { grid-template-columns: repeat(4, 1fr); }
+}
+
+.footer { text-align: center; margin-top: 6px; }
+
+/* ------------------------------------------------------------------ sheets */
+
+.sheet {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+}
+
+.sheet-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.sheet-card h2 { margin: 0 0 10px; font-size: 22px; }
+
+.sheet-card p { margin: 0 0 14px; line-height: 1.45; }
+
+.sheet-actions { display: flex; flex-direction: column; gap: 8px; }
+
+.sheet-actions .btn { width: 100%; }
+
+.credits { font-size: 13px; color: var(--text-dim); }
+
+/* A spectator has no business seeing move controls. */
+body.spectating .controls { display: none; }
+
+/* Coordinates sit in the frame margin; keep them dark and bold enough to read in glare. */
+.cm-chessboard.default-contrast.border-type-frame .board .border { fill: #dcd8c8; }
+.cm-chessboard.default-contrast.border-type-frame .board .border-inner {
+  stroke: #6f8f4f;
+  fill: #6f8f4f;
+}
